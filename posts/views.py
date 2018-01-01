@@ -26,8 +26,13 @@ def create(request):
         return render(request, 'posts/create.html')
 
 def home(request):
-    posts = Post.objects.order_by('votes_total')
+    posts = Post.objects.order_by('-votes_total')
     return render(request, 'posts/home.html',{'posts':posts})
+
+def userview(request,fk):
+    userposts = Post.objects.filter(author__id = fk).order_by('-votes_total')
+    author = User.objects.get(pk=fk)
+    return render(request,'posts/user.html',{'posts':userposts,'author':author})
 
 def upvote(request, pk):
     if request.method == "POST":

@@ -9,3 +9,9 @@ class Post(models.Model):
     pub_date = models.DateTimeField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     votes_total = models.IntegerField(default=1)
+
+    def pub_date_format(self):
+        return self.pub_date.strftime('%b %e %Y')
+
+    def __str__(self):
+        return self.title
